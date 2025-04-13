@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Your Politeness Role-Play Research Project</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .intro, .step {
+            margin-bottom: 20px;
+        }
+        .intro {
+            display: block;
+        }
+        .step {
+            display: none;
+        }
+        .step.active {
+            display: block;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"], select, textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        textarea {
+            height: 100px;
+        }
+        .output textarea {
+            min-height: 200px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        button:disabled {
+            background-color: #6c757d;
+            cursor: not-allowed;
+        }
+        button.start-over {
+            background-color: #dc3545;
+        }
+        button.start-over:hover {
+            background-color: #c82333;
+        }
+        .example {
+            background-color: #e9ecef;
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 10px;
+            display: none;
+        }
+        .feedback {
+            color: #d9534f;
+            font-style: italic;
+            margin-top: 10px;
+            display: none;
+        }
+        .progress {
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        .output {
+            text-align: center;
+        }
+        .nav-buttons {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+    </style>
+    <!-- Include jsPDF for PDF generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Create Your Politeness Role-Play Research Project</h1>
+        <div class="intro">
+            <p><strong>Discover how politeness shapes workplace interactions!</strong></p>
+            <p>Welcome to your interactive guide for designing a mini-research project on politeness using <strong>role-play</strong>! In role-play, participants act out realistic scenarios to reveal how they use polite language in dynamic conversations. This page will guide you through creating a hypothesis, designing a role-play scenario, planning data collection and analysis, and addressing ethics—all based on a workplace scenario.</p>
+            <p><strong>Scenario</strong>: You’re a junior employee at a marketing firm. Your team leader asks you to work late to meet a tight deadline, but you have a personal commitment. How do employees politely negotiate such requests while maintaining professional relationships?</p>
+            <p>By the end, you’ll have a complete research plan to share!</p>
+            <button onclick="startDesign()">Start Designing!</button>
+        </div>
+
+        <div class="progress" id="progress">Step 1 of 5</div>
+
+        <!-- Step 1: Hypothesis -->
+        <div class="step" id="step1">
+            <h2>Step 1: Formulate a Hypothesis</h2>
+            <p>A hypothesis is a testable prediction about politeness in the role-play scenario. For example, predict how employees respond to a manager’s request. Focus on one politeness aspect, like deference or assertiveness.</p>
+            <div class="form-group">
+                <label for="hypothesis">Write your hypothesis:</label>
+                <textarea id="hypothesis" placeholder="e.g., Younger employees use more deferential language than older employees when declining a manager’s request."></textarea>
+            </div>
+            <div class="form-group">
+                <label for="politeness-aspect">Which politeness aspect are you studying?</label>
+                <select id="politeness-aspect">
+                    <option value="Deference">Deference</option>
+                    <option value="Assertiveness">Assertiveness</option>
+                    <option value="Hedging">Hedging</option>
+                    <option value="Face-saving">Face-saving</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            <button onclick="showExample(1)">Show Example</button>
+            <div class="example" id="example1">Example: "Female employees use more hedging strategies than male employees when negotiating workload with a manager."</div>
+            <div class="feedback" id="feedback1"></div>
+            <div class="nav-buttons">
+                <button disabled>Previous</button>
+                <button onclick="saveAndContinue(1)">Next</button>
+                <button class="start-over" onclick="startOver()">Start Over</button>
+            </div>
+        </div>
+
+        <!-- Step 2: Role-Play Design -->
+        <div class="step" id="step2">
+            <h2>Step 2: Design Your Role-Play</h2>
+            <p>Create a role-play scenario based on the workplace context. Decide if it’s <strong>scripted</strong> (fixed dialogue) or <strong>improvised</strong> (participants respond freely).</p>
+            <div class="form-group">
+                <label for="scenario-desc">Describe the scenario (2–3 sentences):</label>
+                <textarea id="scenario-desc" placeholder="e.g., You’re a junior employee at a marketing firm. Your team leader, Sarah, asks you to stay late..."></textarea>
+            </div>
+            <div class="form-group">
+                <label>Role-play type:</label>
+                <input type="radio" name="roleplay-type" value="scripted" id="scripted-roleplay" checked> <label for="scripted-roleplay">Scripted</label>
+                <input type="radio" name="roleplay-type" value="improvised" id="improvised-roleplay"> <label for="improvised-roleplay">Improvised</label>
+            </div>
+            <div class="form-group">
+                <label for="roleplay-instructions">Write instructions for participants:</label>
+                <textarea id="roleplay-instructions" placeholder="e.g., Scripted: Employee says: 'I’d love to help, but I have a prior commitment.' Manager responds. / Improvised: Employee, respond to: 'Can you stay late tonight?'"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="participants">Who are your participants?</label>
+                <input type="text" id="participants" placeholder="e.g., 15 employees, mixed ages and genders">
+            </div>
+            <button onclick="showExample(2)">Show Example</button>
+            <div class="example" id="example2">Example: "Role-play: You’re an employee. Your manager says, ‘Can you take on an extra project?’ Act out your response."</div>
+            <div class="feedback" id="feedback2"></div>
+            <div class="nav-buttons">
+                <button onclick="goPrevious(2)">Previous</button>
+                <button onclick="saveAndContinue(2)">Next</button>
+                <button class="start-over" onclick="startOver()">Start Over</button>
+            </div>
+        </div>
+
+        <!-- Step 3: Data Collection -->
+        <div class="step" id="step3">
+            <h2>Step 3: Plan Your Data Collection</h2>
+            <p>Plan how you’ll collect role-play data. Specify participant numbers, recording method, and variables like age or role.</p>
+            <div class="form-group">
+                <label for="num-participants">How many participants?</label>
+                <input type="number" id="num-participants" min="1" placeholder="e.g., 10–20">
+            </div>
+            <div class="form-group">
+                <label for="recording-method">Recording method:</label>
+                <select id="recording-method">
+                    <option value="Audio only">Audio only</option>
+                    <option value="Video">Video</option>
+                    <option value="Notes by observer">Notes by observer</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="variables">What variables will you control?</label>
+                <input type="text" id="variables" placeholder="e.g., All participants are full-time employees">
+            </div>
+            <button onclick="showExample(3)">Show Example</button>
+            <div class="example" id="example3">Example: "Record 10 role-plays with employees aged 25–35, using video to capture tone and gestures."</div>
+            <div class="feedback" id="feedback3"></div>
+            <div class="nav-buttons">
+                <button onclick="goPrevious(3)">Previous</button>
+                <button onclick="saveAndContinue(3)">Next</button>
+                <button class="start-over" onclick="startOver()">Start Over</button>
+            </div>
+        </div>
+
+        <!-- Step 4: Data Analysis -->
+        <div class="step" id="step4">
+            <h2>Step 4: Plan Your Data Analysis</h2>
+            <p>Decide how you’ll analyze role-play dialogues to identify politeness patterns (e.g., categorize responses as Deferential or Assertive).</p>
+            <div class="form-group">
+                <label for="classification">How will you classify responses?</label>
+                <input type="text" id="classification" placeholder="e.g., Group into Deferential, Assertive, or Evasive">
+            </div>
+            <div class="form-group">
+                <label for="expected-pattern">What pattern do you expect?</label>
+                <input type="text" id="expected-pattern" placeholder="e.g., More deferential responses from junior employees">
+            </div>
+            <div class="form-group">
+                <label>Analysis methods:</label>
+                <input type="checkbox" id="transcribe" value="Transcribe dialogues"> <label for="transcribe">Transcribe dialogues</label><br>
+                <input type="checkbox" id="code" value="Code verbal strategies"> <label for="code">Code verbal strategies</label><br>
+                <input type="checkbox" id="nonverbal" value="Analyze non-verbal cues"> <label for="nonverbal">Analyze non-verbal cues</label>
+            </div>
+            <button onclick="showExample(4)">Show Example</button>
+            <div class="example" id="example4">Example: "Transcribe dialogues and categorize responses as Direct, Indirect, or Mitigated."</div>
+            <div class="feedback" id="feedback4"></div>
+            <div class="nav-buttons">
+                <button onclick="goPrevious(4)">Previous</button>
+                <button onclick="saveAndContinue(4)">Next</button>
+                <button class="start-over" onclick="startOver()">Start Over</button>
+            </div>
+        </div>
+
+        <!-- Step 5: Ethics -->
+        <div class="step" id="step5">
+            <h2>Step 5: Address Ethical Considerations</h2>
+            <p>Ensure your study is ethical by obtaining consent for recordings and protecting participant privacy.</p>
+            <div class="form-group">
+                <label for="ethics-statement">How will you inform participants and protect their data?</label>
+                <textarea id="ethics-statement" placeholder="e.g., I’ll provide a consent form and store recordings securely without names."></textarea>
+            </div>
+            <div class="form-group">
+                <label>Ethical measures:</label>
+                <input type="checkbox" id="consent" value="Obtain signed consent"> <label for="consent">Obtain signed consent</label><br>
+                <input type="checkbox" id="anonymize" value="Anonymize recordings"> <label for="anonymize">Anonymize recordings</label><br>
+                <input type="checkbox" id="withdraw" value="Allow withdrawal anytime"> <label for="withdraw">Allow withdrawal anytime</label>
+            </div>
+            <button onclick="showExample(5)">Show Example</button>
+            <div class="example" id="example5">Example: "Provide a consent form explaining the study’s purpose and ensure recordings are anonymized."</div>
+            <div class="feedback" id="feedback5"></div>
+            <div class="nav-buttons">
+                <button onclick="goPrevious(5)">Previous</button>
+                <button onclick="saveAndContinue(5)">Next</button>
+                <button class="start-over" onclick="startOver()">Start Over</button>
+            </div>
+        </div>
+
+        <!-- Output Section -->
+        <div class="step output" id="output">
+            <h2>Your Role-Play Research Plan</h2>
+            <p>Congratulations! You’ve designed a politeness research project using role-play. Review your plan below and download it to share.</p>
+            <textarea id="plan-summary" readonly></textarea>
+            <div class="nav-buttons">
+                <button onclick="goPrevious(6)">Previous</button>
+                <button onclick="downloadPlan()">Download Your Research Plan</button>
+                <button class="start-over" onclick="startOver()">Start Over</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        console.log('Script loaded');
+        let currentStep = 0;
+        let projectPlan = {
+            hypothesis: "",
+            politenessAspect: "",
+            scenarioDesc: "",
+            roleplayType: "",
+            roleplayInstructions: "",
+            participants: "",
+            numParticipants: "",
+            recordingMethod: "",
+            variables: "",
+            classification: "",
+            expectedPattern: "",
+            analysisMethods: [],
+            ethicsStatement: "",
+            ethicalMeasures: []
+        };
+
+        function startDesign() {
+            try {
+                console.log('Starting design process...');
+                const intro = document.querySelector('.intro');
+                if (!intro) throw new Error('Intro section not found');
+                intro.style.display = 'none';
+                resetForm();
+                showStep(1);
+            } catch (error) {
+                console.error('Error in startDesign:', error);
+                alert('Failed to start designing. Check console.');
+            }
+        }
+
+        function showStep(step) {
+            try {
+                console.log(`Attempting to show step ${step}, currentStep: ${currentStep}`);
+                document.querySelectorAll('.step').forEach(s => {
+                    s.classList.remove('active');
+                    s.style.display = 'none';
+                    console.log(`Hid step: ${s.id}`);
+                });
+                const output = document.getElementById('output');
+                const progress = document.getElementById('progress');
+                if (!output || !progress) throw new Error('Output or progress element missing');
+                output.style.display = 'none';
+                console.log('Hid output');
+                if (step >= 1 && step <= 5) {
+                    const stepEl = document.getElementById(`step${step}`);
+                    if (!stepEl) throw new Error(`Step ${step} element not found`);
+                    stepEl.classList.add('active');
+                    stepEl.style.display = 'block';
+                    progress.textContent = `Step ${step} of 5`;
+                    console.log(`Showed step${step}`);
+                } else if (step === 6) {
+                    output.classList.add('active');
+                    output.style.display = 'block';
+                    progress.textContent = 'Complete!';
+                    showOutput();
+                    console.log('Showed output');
+                }
+                currentStep = step;
+                console.log(`Step ${step} set, currentStep: ${currentStep}`);
+            } catch (error) {
+                console.error('Error in showStep:', error);
+                alert('Error displaying step. Check console.');
+            }
+        }
+
+        function showExample(step) {
+            try {
+                const example = document.getElementById(`example${step}`);
+                if (example) {
+                    example.style.display = example.style.display === 'none' ? 'block' : 'none';
+                    console.log(`Toggled example${step}`);
+                }
+            } catch (error) {
+                console.error('Error in showExample:', error);
+            }
+        }
+
+        function goPrevious(step) {
+            try {
+                if (step > 1) {
+                    showStep(step - 1);
+                    console.log(`Went to step ${step - 1}`);
+                }
+            } catch (error) {
+                console.error('Error in goPrevious:', error);
+            }
+        }
+
+        function resetForm() {
+            try {
+                console.log('Starting form reset...');
+                projectPlan = {
+                    hypothesis: "",
+                    politenessAspect: "",
+                    scenarioDesc: "",
+                    roleplayType: "",
+                    roleplayInstructions: "",
+                    participants: "",
+                    numParticipants: "",
+                    recordingMethod: "",
+                    variables: "",
+                    classification: "",
+                    expectedPattern: "",
+                    analysisMethods: [],
+                    ethicsStatement: "",
+                    ethicalMeasures: []
+                };
+                console.log('Reset projectPlan');
+
+                const inputs = [
+                    'hypothesis', 'scenario-desc', 'roleplay-instructions', 'participants',
+                    'num-participants', 'variables', 'classification', 'expected-pattern',
+                    'ethics-statement', 'plan-summary'
+                ];
+                inputs.forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) {
+                        el.value = '';
+                        console.log(`Cleared input ${id}`);
+                    } else {
+                        console.warn(`Input ${id} not found`);
+                    }
+                });
+
+                const selects = ['politeness-aspect', 'recording-method'];
+                selects.forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) {
+                        el.selectedIndex = 0;
+                        console.log(`Reset select ${id}`);
+                    } else {
+                        console.warn(`Select ${id} not found`);
+                    }
+                });
+
+                const scripted = document.getElementById('scripted-roleplay');
+                const improvised = document.getElementById('improvised-roleplay');
+                if (scripted) {
+                    scripted.checked = true;
+                    console.log('Set scripted checked');
+                } else {
+                    console.warn('scripted-roleplay not found');
+                }
+                if (improvised) {
+                    improvised.checked = false;
+                    console.log('Set improvised unchecked');
+                } else {
+                    console.warn('improvised-roleplay not found');
+                }
+
+                const checkboxes = ['transcribe', 'code', 'nonverbal', 'consent', 'anonymize', 'withdraw'];
+                checkboxes.forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) {
+                        el.checked = false;
+                        console.log(`Unchecked ${id}`);
+                    } else {
+                        console.warn(`Checkbox ${id} not found`);
+                    }
+                });
+
+                for (let i = 1; i <= 5; i++) {
+                    const fb = document.getElementById(`feedback${i}`);
+                    if (fb) {
+                        fb.textContent = '';
+                        fb.style.display = 'none';
+                        console.log(`Cleared feedback${i}`);
+                    } else {
+                        console.warn(`feedback${i} not found`);
+                    }
+                    const ex = document.getElementById(`example${i}`);
+                    if (ex) {
+                        ex.style.display = 'none';
+                        console.log(`Hid example${i}`);
+                    } else {
+                        console.warn(`example${i} not found`);
+                    }
+                }
+
+                const intro = document.querySelector('.intro');
+                if (intro) {
+                    intro.style.display = 'none';
+                    console.log('Hid intro');
+                } else {
+                    console.warn('Intro not found');
+                }
+
+                console.log('Form reset complete, projectPlan:', projectPlan);
+            } catch (error) {
+                console.error('Error in resetForm:', error);
+                alert('Error resetting form. Check console.');
+            }
+        }
+
+        function startOver() {
+            try {
+                console.log('Start Over clicked, currentStep:', currentStep);
+                const confirmed = window.confirm('Are you sure you want to start over? All progress will be lost.');
+                console.log('Confirm result:', confirmed);
+                if (confirmed) {
+                    console.log('Resetting form...');
+                    resetForm();
+                    console.log('Navigating to Step 1...');
+                    showStep(1);
+                    console.log('Start Over complete');
+                } else {
+                    console.log('Start Over cancelled');
+                }
+            } catch (error) {
+                console.error('Error in startOver:', error);
+                alert('Error starting over. Check console.');
+            }
+        }
+
+        function saveAndContinue(step) {
+            try {
+                const feedback = document.getElementById(`feedback${step}`);
+                if (feedback) feedback.style.display = 'none';
+
+                if (step === 1) {
+                    const hypothesis = document.getElementById('hypothesis');
+                    const politenessAspect = document.getElementById('politeness-aspect');
+                    if (!hypothesis || !politenessAspect) {
+                        if (feedback) {
+                            feedback.textContent = 'Error: Input fields not found.';
+                            feedback.style.display = 'block';
+                        }
+                        return;
+                    }
+                    projectPlan.hypothesis = hypothesis.value.trim();
+                    projectPlan.politenessAspect = politenessAspect.value;
+                    if (!projectPlan.hypothesis) {
+                        if (feedback) {
+                            feedback.textContent = 'Please enter a hypothesis.';
+                            feedback.style.display = 'block';
+                        }
+                        return;
+                    }
+                    showStep(2);
+                } else if (step === 2) {
+                    const scenarioDesc = document.getElementById('scenario-desc');
+                    const roleplayType = document.querySelector('input[name="roleplay-type"]:checked');
+                    const roleplayInstructions = document.getElementById('roleplay-instructions');
+                    const participants = document.getElementById('participants');
+                    if (!scenarioDesc || !roleplayType || !roleplayInstructions || !participants) {
+                        if (feedback) {
+                            feedback.textContent = 'Error: Input fields not found.';
+                            feedback.style.display = 'block';
+                        }
+                        return;
+                    }
+                    projectPlan.scenarioDesc = scenarioDesc.value.trim();
+                    projectPlan.roleplayType = roleplayType.value;
+                    projectPlan.roleplayInstructions = roleplayInstructions.value.trim();
+                    projectPlan.participants = participants.value.trim();
+                    if (!projectPlan.scenarioDesc || !projectPlan.roleplayInstructions || !projectPlan.participants) {
+                        if (feedback) {
+                            feedback.textContent = 'Please complete all fields.';
+                            feedback.style.display = 'block';
+                        }
+                        return;
+                    }
+                    showStep(3);
+                } else if (step === 3) {
+                    const numParticipants = document.getElementById('num-participants');
+                    const recordingMethod = document.getElementById('recording-method');
+                    const variables = document.getElementById('variables');
+                    if (!numParticipants || !recordingMethod || !variables) {
+                        if (feedback) {
+                            feedback.textContent = 'Error: Input fields not found.';
+                            feedback.style.display = 'block';
+                        }
+                        return;
+                    }
+                    const num = parseInt(numParticipants.value);
+                    projectPlan.numParticipants = num;
+                    projectPlan.recordingMethod = recordingMethod.value;
+                    projectPlan.variables = variables.value.trim();
+                    if (isNaN(num) || num < 1) {
+                        if (feedback) {
+                            feedback.textContent = 'Please enter a valid number of participants.';
+                            feedback.style.display = 'block';
+                        }
+                        return;
+                    }
+                    if (!projectPlan.variables) {
+                        if (feedback) {
+                            feedback.textContent = 'Please specify variables.';
+                            feedback.style.display = 'block';
+                        }
+                        return;
+                    }
+                    showStep(4);
+                } else if (step === 4) {
+                    const classification = document.getElementById('classification');
+                    const expectedPattern = document.getElementById('expected-pattern');
+                    if (!classification || !expectedPattern) {
+                        if (feedback) {
+                            feedback.textContent = 'Error: Input fields not found.';
+                            feedback.style.display = 'block';
+                        }
+                        return;
+                    }
+                    projectPlan.classification = classification.value.trim();
+                    projectPlan.expectedPattern = expectedPattern.value.trim();
+                    projectPlan.analysisMethods = [];
+                    document.querySelectorAll('#step4 input[type="checkbox"]:checked').forEach(cb => {
+                        projectPlan.analysisMethods.push(cb.value);
+                    });
+                    if (!projectPlan.classification || !projectPlan.expectedPattern) {
+                        if (feedback) {
+                            feedback.textContent = 'Please specify classification and expected pattern.';
+                            feedback.style.display = 'block';
+                        }
+                        return;
+                    }
+                    if (!projectPlan.analysisMethods.length) {
+                        if (feedback) {
+                            feedback.textContent = 'Please select at least one analysis method.';
+                            feedback.style.display = 'block';
+                        }
+                        return;
+                    }
+                    showStep(5);
+                } else if (step === 5) {
+                    const ethicsStatement = document.getElementById('ethics-statement');
+                    if (!ethicsStatement) {
+                        if (feedback) {
+                            feedback.textContent = 'Error: Input field not found.';
+                            feedback.style.display = 'block';
+                        }
+                        return;
+                    }
+                    projectPlan.ethicsStatement = ethicsStatement.value.trim();
+                    projectPlan.ethicalMeasures = [];
+                    document.querySelectorAll('#step5 input[type="checkbox"]:checked').forEach(cb => {
+                        projectPlan.ethicalMeasures.push(cb.value);
+                    });
+                    if (!projectPlan.ethicsStatement) {
+                        if (feedback) {
+                            feedback.textContent = 'Please provide an ethics statement.';
+                            feedback.style.display = 'block';
+                        }
+                        return;
+                    }
+                    if (!projectPlan.ethicalMeasures.length) {
+                        if (feedback) {
+                            feedback.textContent = 'Please select at least one ethical measure.';
+                            feedback.style.display = 'block';
+                        }
+                        return;
+                    }
+                    showStep(6);
+                }
+            } catch (error) {
+                console.error('Error in saveAndContinue:', error);
+                alert('Error proceeding to next step. Check console.');
+            }
+        }
+
+        function showOutput() {
+            try {
+                console.log('Showing output, projectPlan:', projectPlan);
+                const output = document.getElementById('output');
+                const summary = document.getElementById('plan-summary');
+                if (!output || !summary) throw new Error('Output or plan-summary element not found');
+                output.style.display = 'block';
+                const planSummary = `
+Role-Play Research Plan Summary
+------------------------------
+Hypothesis: ${projectPlan.hypothesis || 'Not provided'}
+Politeness Aspect: ${projectPlan.politenessAspect || 'Not provided'}
+Scenario: ${projectPlan.scenarioDesc || 'Not provided'}
+Role-Play Type: ${projectPlan.roleplayType || 'Not provided'}
+Role-Play Instructions: ${projectPlan.roleplayInstructions || 'Not provided'}
+Participants: ${projectPlan.participants || 'Not provided'}
+Number of Participants: ${projectPlan.numParticipants || 'Not provided'}
+Recording Method: ${projectPlan.recordingMethod || 'Not provided'}
+Variables Controlled: ${projectPlan.variables || 'Not provided'}
+Response Classification: ${projectPlan.classification || 'Not provided'}
+Expected Pattern: ${projectPlan.expectedPattern || 'Not provided'}
+Analysis Methods: ${projectPlan.analysisMethods.join(', ') || 'Not provided'}
+Ethics Statement: ${projectPlan.ethicsStatement || 'Not provided'}
+Ethical Measures: ${projectPlan.ethicalMeasures.join(', ') || 'Not provided'}
+                `;
+                summary.value = planSummary.trim();
+                console.log('Output displayed');
+            } catch (error) {
+                console.error('Error in showOutput:', error);
+                alert('Error displaying summary. Check console.');
+            }
+        }
+
+        function downloadPlan() {
+            try {
+                console.log('Download triggered, projectPlan:', projectPlan);
+                if (!window.jspdf || !window.jspdf.jsPDF) {
+                    console.error('jsPDF not loaded');
+                    throw new Error('jsPDF library not loaded');
+                }
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+                let y = 10;
+                const maxWidth = 180;
+                doc.setFontSize(12);
+
+                function addText(label, text, x, y) {
+                    const safeText = String(text || 'Not provided');
+                    doc.text(`${label}:`, x, y);
+                    y += 7;
+                    const splitText = doc.splitTextToSize(safeText, maxWidth);
+                    doc.text(splitText, x + 5, y);
+                    return y + splitText.length * 7 + 5;
+                }
+
+                const title = "Role-Play Research Plan Summary";
+                doc.text(title, 10, y);
+                y += 7;
+                doc.text("-".repeat(title.length), 10, y);
+                y += 10;
+
+                y = addText("Hypothesis", projectPlan.hypothesis, 10, y);
+                y = addText("Politeness Aspect", projectPlan.politenessAspect, 10, y);
+                y = addText("Scenario", projectPlan.scenarioDesc, 10, y);
+                y = addText("Role-Play Type", projectPlan.roleplayType, 10, y);
+                y = addText("Role-Play Instructions", projectPlan.roleplayInstructions, 10, y);
+                y = addText("Participants", projectPlan.participants, 10, y);
+                y = addText("Number of Participants", projectPlan.numParticipants, 10, y);
+                y = addText("Recording Method", projectPlan.recordingMethod, 10, y);
+                y = addText("Variables Controlled", projectPlan.variables, 10, y);
+                y = addText("Response Classification", projectPlan.classification, 10, y);
+                y = addText("Expected Pattern", projectPlan.expectedPattern, 10, y);
+                y = addText("Analysis Methods", projectPlan.analysisMethods.join(', '), 10, y);
+                y = addText("Ethics Statement", projectPlan.ethicsStatement, 10, y);
+                y = addText("Ethical Measures", projectPlan.ethicalMeasures.join(', '), 10, y);
+
+                doc.save('roleplay_research_plan.pdf');
+                console.log('PDF generated');
+            } catch (error) {
+                console.error('Error in downloadPlan:', error);
+                alert('Failed to generate PDF. Ensure internet connection and check console.');
+            }
+        }
+
+        // Add event listeners for start-over buttons
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('DOM loaded, attaching start-over listeners');
+            document.querySelectorAll('.start-over').forEach(button => {
+                button.addEventListener('click', () => {
+                    console.log('Start Over button clicked via event listener');
+                    startOver();
+                });
+            });
+        });
+    </script>
+</body>
+</html>
